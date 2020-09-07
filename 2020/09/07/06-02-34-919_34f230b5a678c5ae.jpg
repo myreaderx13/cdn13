@@ -1,0 +1,85 @@
+<?
+/**
+* $Id: index.php 44 2005-06-14 09:04:43Z urbansheep $
+*
+* @author  
+*
+*   Главная страница
+*   Здесь мы выводим:
+*   - статистику системы
+*   - новости и состояние системы
+**/
+require('class/ru.utx.vars.class');
+require('class/ru.utx.logger.class');
+require('class/ru.utx.mysql.class');
+require('class/ru.utx.page.class');
+require('class/ru.utx.usermanager.class');
+
+// require_once($vars->$pear.'lib/Request.php');
+
+$vars           = new vars();
+$logger         = new logger($vars);
+// $request        = new HTTP_Request();
+$db             = new c_db($vars, $logger);
+
+// $request        = new HTTP_Request();
+
+$page           = new page($vars, $logger, $db);
+$UserManager    = new UserManager($vars, $logger, $db);
+
+
+/* container var for the main body */
+$mainContent = '';
+
+
+// echo(date('Y-m-d H:i:s'));
+
+?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+	<title>utx</title>
+<?
+echo($vars->pageHeader());
+?>
+<style>
+
+.mrd {
+	margin:10px 0;
+	padding:5px;
+	background:#C3DEE5;
+}
+.brd {
+	border:#23748A 1px solid;
+	padding:3px;
+	font:0.8em tahoma;
+}
+
+</style>
+</head>
+
+<body>
+<div class="mrd">
+<table border="0" cellpadding="5" cellspacing="0">
+<tr>
+<td>
+<p><span class="brd">utx</span></p>
+</td>
+<td style="width:200px;" valign="top"><?
+echo($UserManager->showHeader());
+?></td>
+</tr>
+</table></div>
+
+<?
+
+// include('_notify.php');
+?>
+<div style="background:url('http://utx.ambience.ru/i/ffxs.png') no-repeat 6px 7px;margin-left:20px;"><p style="padding:5px 5px 5px 30px;margin:0;"><strong>utx</strong> рекомендует<br /><a href="http://mozilla.org/firefox/">браузер FireFox</a>.</p></div>
+
+<?
+echo($vars->pageFooter());
+?>
+</body>
+</html>
